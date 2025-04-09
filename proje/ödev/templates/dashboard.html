@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağaza Veri Analizi</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .box {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .box h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .box p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .box ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .box li {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .exit-btn {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .exit-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Mağaza Veri Analizi</h1>
+    <div class="container">
+        <div class="box">
+            <h3>En Çok Satılan Ürün</h3>
+            <ul>
+                {% for item in data.top_sold %}
+                <li>{{ item.name }} - {{ item.total_sold }} adet</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="box">
+            <h3>En Az Satılan Ürün</h3>
+            <ul>
+                {% for item in data.least_sold %}
+                <li>{{ item.name }} - {{ item.total_sold }} adet</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="box">
+            <h3>En Çok Görüntülenen Ürün</h3>
+            <ul>
+                {% for item in data.top_viewed %}
+                <li>{{ item.name }} - {{ item.view_count }} görüntülenme</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="box">
+            <h3>En Çok Tercih Edilen Kategori</h3>
+            <p>{{ data.top_category.name }} - {{ data.top_category.total_sold }} adet</p>
+        </div>
+        <div class="box">
+            <h3>Günlük Ciro</h3>
+            <p>{{ data.daily_revenue|default(0) }}₺</p>
+        </div>
+    </div>
+    <a href="index.php?logout=true" class="exit-btn">Çıkış</a>
+</body>
+
+</html>
